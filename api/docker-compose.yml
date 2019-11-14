@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  django-apache2:
+    build: .
+    container_name: django-apache2
+    ports:
+      - "8005:80"
+      - "3500:3500"
+      - "8006:81"
+    volumes:
+      - $PWD/www:/var/www/html
+    command: "python3 ./www/django-folder/crinfo/manage.py makemigrations"
+    command: "python3 ./www/django-folder/crinfo/manage.py migrate"
+    command: apache2ctl -D FOREGROUND
+
